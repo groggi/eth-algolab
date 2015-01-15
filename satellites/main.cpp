@@ -100,7 +100,7 @@ int main(void)
             }
         }
 
-        // NOTE: abstand am ende kein Problem! So kompliziertes spaces einfügen nicht nötig :)
+        // NOTE: abstand am ende kein Problem! So kompliziertes spaces einfügen nicht noetig :)
         cout << out_ground_ids.size() << " " << out_satellite_ids.size() << endl;
         bool first = true;
         for(int og : out_ground_ids) {

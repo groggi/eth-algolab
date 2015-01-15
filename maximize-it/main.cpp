@@ -61,22 +61,22 @@ int main() {
       //                                    v- no upper bound
       Program lp(CGAL::SMALLER, true, 0, false, 0);
       
-      // x + y ≤ 4
+      // x + y <= 4
       lp.set_a(var_x, 0, 1);
       lp.set_a(var_y, 0, 1);
       lp.set_b(0, 4);
       
-      // 4x + 2y ≤ ab
+      // 4x + 2y <= ab
       lp.set_a(var_x, 1, 4);
       lp.set_a(var_y, 1, 2);
       lp.set_b(1, a * b);
       
-      // − x + y ≤ 1
+      // -x + y <= 1
       lp.set_a(var_x, 2, -1);
       lp.set_a(var_y, 2, 1);
       lp.set_b(2, 1);
       
-      // maximize: by − ax^2 so we have to minimize -by + ax^2
+      // maximize: by -ax^2 so we have to minimize -by + ax^2
       lp.set_c(var_y, -b);
       lp.set_d(var_x, var_x, 2*a);
       
@@ -101,19 +101,19 @@ int main() {
       lp.set_u(Y, true, 0);
       lp.set_l(Z, true, 0);
       
-      // x + y ≥ −4
+      // x + y >= -4
       lp.set_a(var_x, 0, 1);
       lp.set_a(var_y, 0, 1);
       lp.set_b(0, -4);
       
-      // 4x + 2y + z^2 ≥ −ab => we substitute z^2 by just z (don't forget to do the same for the minimized formula dingsi)
+      // 4x + 2y + z^2 => -ab => we substitute z^2 by just z (don't forget to do the same for the minimized formula dingsi)
       // i.e. we get 4x + 2y + z >= -ab
       lp.set_a(var_x, 1, 4);
       lp.set_a(var_y, 1, 2);
       lp.set_a(var_z, 1, 1);
       lp.set_b(1, -(a*b));
       
-      // − x + y ≥ −1
+      // -x + y >= -11
       lp.set_a(var_x, 2, -1);
       lp.set_a(var_y, 2, 1);
       lp.set_b(2, -1);
