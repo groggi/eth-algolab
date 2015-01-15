@@ -16,27 +16,6 @@ typedef CGAL::Point_set_2<K, Tds>::Vertex_handle Vertex_handle;
 
 using namespace std;
 
-// from slides, fun!
-double floor_to_double(const K::FT& x)
-{
-  double a = std::floor(CGAL::to_double(x));
-  while (a > x) a -= 1;
-  while (a+1 <= x) a += 1;
-  return a;
-}
-
-double ceil_to_double(const K::FT& x)
-{
-  double a = std::ceil(CGAL::to_double(x));
-  while (a < x) a += 1;
-  while (a-1 >= x) a -= 1;
-  return a;
-}
-
-bool pairCompare(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-  return lhs.first < lhs.first;
-}
-
 int main() {
   // some basic setup stuff
   cin.sync_with_stdio(false);
