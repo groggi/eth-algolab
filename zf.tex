@@ -48,7 +48,7 @@
 
 \makeindex
 \newcommand{\topic}[1]{\index{#1}#1}
-\newcommand{\expdf}[3]{\includepdf[pagecommand={\subsection{#1}\textbf{Keywords:} #2}]{#3}\newpage}
+\newcommand{\expdf}[3]{\includepdf[nup=1x1, pages={-}, pagecommand={\subsection{#1}\textbf{Keywords:} #2}]{#3}\newpage}
 
 \begin{document}
 
@@ -57,7 +57,7 @@
 \newpage
 \setcounter{page}{1}
 
-\section{ACM}
+\newpage\section{ACM}
 \expdf{Even Pairs}{\topic{test1}, \topic{test2}}{even-pairs/even_pairs.pdf}
 \lstinputlisting{even-pairs/main.cpp}
 
@@ -85,7 +85,7 @@
 \expdf{Next Path}{}{next-path/next_path.pdf}
 \lstinputlisting{next-path/main.cpp}
 
-\section{Dynamic Programming}
+\newpage\section{Dynamic Programming}
 \expdf{Longest Path}{}{longest-path/longest_path.pdf}
 \lstinputlisting{longest-path/main.cpp}
 
@@ -98,7 +98,7 @@
 \expdf{Poker Chips}{}{pokerchips/poker_chips.pdf}
 \lstinputlisting{pokerchips/main.cpp}
 
-\section{BGL Introduction}
+\newpage\section{BGL Introduction}
 \expdf{Building a Graph}{}{building-a-graph/bgl_intro.pdf}
 % WRONG :) \lstinputlisting{building-a-graph/main.cpp}
 
@@ -114,7 +114,7 @@
 \expdf{Fluid Borders}{}{fluid-borders/fluid-borders.pdf}
 \lstinputlisting{fluid-borders/main.cpp}
 
-\section{Flows and Matchings}
+\newpage\section{Flows and Matchings}
 \expdf{Buddies Selection}{}{buddy-selection/buddies.pdf}
 \lstinputlisting{buddy-selection/main.cpp}
 
@@ -130,7 +130,7 @@
 \expdf{The Great Game}{}{the-great-game/great_game.pdf}
 \lstinputlisting{the-great-game/main.cpp}
 
-\section{CGAL Introduction}
+\newpage\section{CGAL Introduction}
 \expdf{Hit?}{}{hit/hit.pdf}
 \lstinputlisting{hit/main.cpp}
 
@@ -146,7 +146,7 @@
 \expdf{Surveillance Photographs}{}{surveillance-photographs/surveillance.pdf}
 \lstinputlisting{surveillance-photographs/main.cpp}
 
-\section{Proximity Structures}
+\newpage\section{Proximity Structures}
 \expdf{Graypes}{}{graypes/graypes.pdf}
 \lstinputlisting{graypes/main.cpp}
 
@@ -162,7 +162,7 @@
 \expdf{Hiking Maps}{}{hiking-maps/potw7.pdf}
 % TODO \lstinputlisting{hiking-maps/main.cpp}
 
-\section{Linear/Quadratic Programming}
+\newpage\section{Linear/Quadratic Programming}
 \expdf{What is the Maximum?}{}{maximize-it/maximizeit.pdf}
 \lstinputlisting{maximize-it/main.cpp}
 
@@ -178,7 +178,7 @@
 \expdf{Collisions}{}{collisions/collisions.pdf}
 % TODO: \lstinputlisting{collisions/main.cpp}
 
-\section{Exam Preparation}
+\newpage\section{Exam Preparation}
 \expdf{TheeV}{}{theev/TheeV.pdf}
 \lstinputlisting{theev/main.cpp}
 
