@@ -61,17 +61,17 @@ int main(void)
                 }
                 
                 // i = row, j = column
-                // [i − 1, j − 2]
+                // [i - 1, j - 2]
                 if(row - 1 >= 0 && column - 2 >= 0 && can_occupy.at((row - 1) + (column - 2) * width)) {
                     add_edge(field_index, (row - 1) + (column - 2) * width, graph);
                 }
 
-                // [i − 1, j + 2]
+                // [i - 1, j + 2]
                 if(row - 1 >= 0 && column + 2 < width && can_occupy.at((row - 1) + (column + 2) * width)) {
                     add_edge(field_index, (row - 1) + (column + 2) * width, graph);
                 }
 
-                // [i + 1, j − 2]
+                // [i + 1, j - 2]
                 if(row + 1 < width && column - 2 >= 0 && can_occupy.at((row + 1) + (column - 2) * width)) {
                     add_edge(field_index, (row + 1) + (column - 2) * width, graph);
                 }
@@ -81,17 +81,17 @@ int main(void)
                     add_edge(field_index, (row + 1) + (column + 2) * width, graph);
                 }
 
-                // [i − 2, j − 1]
+                // [i - 2, j - 1]
                 if(row - 2 >= 0 && column - 1 >= 0 && can_occupy.at((row - 2) + (column - 1) * width)) {
                     add_edge(field_index, (row - 2) + (column - 1) * width, graph);
                 }
 
-                // [i − 2, j + 1]
+                // [i - 2, j + 1]
                 if(row - 2 >= 0 && column + 1 < width && can_occupy.at((row - 2) + (column + 1) * width)) {
                     add_edge(field_index, (row - 2) + (column + 1) * width, graph);
                 }
 
-                // [i + 2, j − 1]
+                // [i + 2, j - 1]
                 if(row + 2 < width && column - 1 >= 0 && can_occupy.at((row + 2) + (column - 1) * width)) {
                     add_edge(field_index, (row + 2) + (column - 1) * width, graph);
                 }
