@@ -16,8 +16,8 @@
 	basicstyle=\scriptsize\ttfamily,
     keywordstyle=\color{blue}\ttfamily,
     stringstyle=\color{red}\ttfamily,
-    commentstyle=\color{green}\ttfamily,
-    morecomment=[l][\color{magenta}]{\#},
+    commentstyle=\color{red}\ttfamily,
+    morecomment=[l][\color{red}]{\#},
     tabsize=2,
     frame=single,
     inputencoding=utf8,
@@ -49,7 +49,8 @@
 
 \makeindex
 \newcommand{\topic}[1]{\index{#1}#1}
-\newcommand{\expdf}[3]{\begin{landscape}\includepdf[nup=1x2, landscape=true, pages={-}, pagecommand={\subsection{#1}\textbf{Keywords:} #2}]{#3}\end{landscape}\newpage}
+%\newcommand{\expdf}[3]{\begin{landscape}\includepdf[nup=1x2, landscape=true, pages={-}, pagecommand={\subsection{#1}\textbf{Keywords:} #2}]{#3}\end{landscape}\newpage}
+\newcommand{\expdf}[3]{\subsection{#1}\textbf{Keywords:} #2}
 
 \begin{document}
 
@@ -297,6 +298,41 @@
 \expdf{Cantonal Courier}{}{cantonal-courier/courier.pdf}
 \lstinputlisting{cantonal-courier/main.cpp}
 \lstinputlisting{../eth-algolab-benji/cantonal_courier/courier.cpp}
+
+\section{Useful Snippets and Stuff}
+\subsection{General remarks}
+\begin{itemize}
+\item around $10'000'000$ operations/iterations per second
+\end{itemize}
+
+\subsection{Custom Sorting}
+\lstinputlisting{_useful-snippets/sort.cpp}
+
+\subsection{CMake}
+\lstinputlisting{_useful-snippets/cmakelists.txt}
+
+Debugging can also be enabled by calling \texttt{cmake -DCMAKE\_BUILD\_TYPE=Debug}, however this adds only the \texttt{-g} flag!
+
+\subsection{CMake and CGAL}
+\begin{lstlisting}
+# Step 0: IMPORTANT: first, create the C++ source code file
+
+# Step 1: call CGAL CMake script
+cgal_create_cmake_script
+
+# Step 2: call CMake, don't forget the dot
+cmake .
+
+# Step 3: from now on always enough to call make
+make
+
+# Step 4: execute application
+\end{lstlisting}
+
+\subsection{BGL}
+URL for normal graph functions: \url{https://judge.inf.ethz.ch/doc/boost/libs/graph/doc/graph_concepts.html}. Also good starting point is the ``A Quick Tour of the Boost Graph Library'' (see TOC).
+
+\lstinputlisting{_useful-snippets/bgl.cpp}
 
 \newpage
 \printindex

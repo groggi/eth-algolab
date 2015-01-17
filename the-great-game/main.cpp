@@ -1,19 +1,78 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
-
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/dijkstra_shortest_paths.hpp>
-#include <boost/tuple/tuple.hpp>
+#include <limits>
+#include <algorithm> 
+#include <queue>
+#include <set>
+#include <utility>
+#include <map>
+#include <string>
 
 using namespace std;
-using namespace boost;
 
-typedef adjacency_list < listS, vecS, directedS, no_property, property < edge_weight_t, int > > Graph;
-//typedef graph_traits < graph_t >::vertex_descriptor vertex_descriptor;
-//typedef graph_traits < graph_t >::edge_descriptor edge_descriptor;
-typedef graph_traits<Graph>::edge_descriptor Edge;
-typedef graph_traits<Graph>::vertex_descriptor Vertex;
+int get_min_moves(int start, vector<vector<int> >&trans, vector<int>& min_fields, vector<int>& max_fields, int field_count);
+
+int get_max_moves(int start, vector<vector<int> >&trans, vector<int>& min_fields, vector<int>& max_fields, int field_count) {
+    // if we reached the end, nothing can be doen
+    if(start == field_count - 1) {
+        return 0;
+    }
+
+    // only calculate if value unknown
+    if(max_fields.at(start) == -1) {
+        // keeps track of the maximum amount of steps needed to reach the end from the given starting point
+        int cur_max_found = -1;
+
+        // iterate over all edges one can follow at the `start` position
+        for(vector<int>::iterator iter = trans.at(start).begin();
+            iter != trans.at(start).end();
+            ++iter) {
+            // now we search for the largest minimum amount of steps needed to reach the end
+            int possible_max = get_min_moves(*iter, trans, min_fields, max_fields, field_count);
+            if(possible_max > cur_max_found) {
+                cur_max_found = possible_max;
+            }
+        }
+
+        // update value
+        max_fields.at(start) = cur_max_found + 1; // we still have to take the edge we followed
+    }
+
+    // return solution
+    return max_fields.at(start);
+}
+
+int get_min_moves(int start, vector<vector<int> >&trans, vector<int>& min_fields, vector<int>& max_fields, int field_count) {
+    // if we reached the end, no more moves needed
+    if(start == field_count - 1) {
+        return 0;
+    }
+
+    // only calculate if we don't know the solution yet
+    if(min_fields.at(start) == -1) {
+        // search for the minimum amount of moves to win from the current starting point
+        int cur_min_found = numeric_limits<int>::max();
+
+        // iterate over all possible next moves, i.e. the edges leaving the starting position
+        for(vector<int>::iterator iter = trans.at(start).begin();
+            iter != trans.at(start).end();
+            ++iter) {
+            // `iter` refers now to the edge we can follow, i.e. the next position we reach
+
+            // now we have to assume that our opponent will be in our way and make our life complicated.
+            // search for the maximum of moves from the next point we can reach to the finish line.
+            int possible_min = get_max_moves(*iter, trans, min_fields, max_fields, field_count);
+            if(possible_min < cur_min_found) {
+                cur_min_found = possible_min;
+            }
+        }
+
+        min_fields.at(start) = cur_min_found + 1; // we still have to use the edge, so add one
+    }
+
+    // return solution
+    return min_fields.at(start);
+}
 
 
 int main() {
@@ -32,40 +91,48 @@ int main() {
         cin >> start_red >> start_black;
         start_red -= 1; start_black -= 1; // let it start with 0, not 1
 
-        // create graph
-        // source and sink are defined by player start and the target location, no additional nodes therefore needed
-        Graph graph(position_count);
-        property_map<Graph, edge_weight_t>::type weightMap = get(edge_weight, graph);
-
+        // read in the possible transitions
+        vector<vector<int> > trans(position_count, vector<int>());
         for(int transition_index = 0; transition_index < transition_count; transition_index++) {
             int from, to;
             cin >> from >> to;
             from -= 1; to -= 1; // let it start at 0
 
-            // create edge representing the transition
-            Edge edge;
-            tie(edge, tuples::ignore) = add_edge(from, to, graph);
-            weightMap[edge] = 1;
+            // create transition, it's directed!
+            trans.at(from).push_back(to);
         }
 
-        // calculate shortest paths
-        vector<Vertex> predecessorsR(num_vertices(graph));
-        vector<int> distancesR(num_vertices(graph));
-        dijkstra_shortest_paths(graph, start_red, &predecessorsR[0], &distancesR[0], get(edge_weight, graph), get(vertex_index, graph), less<int>(), plus<int>(), (numeric_limits<int>::max)(), 0, default_dijkstra_visitor());
-        int red_len = distancesR[position_count - 1];
+        vector<int> min_fields(position_count, -1);
+        vector<int> max_fields(position_count, -1);
 
-        vector<Vertex> predecessorsB(num_vertices(graph));
-        vector<int> distancesB(num_vertices(graph));
-        dijkstra_shortest_paths(graph, start_black, &predecessorsB[0], &distancesB[0], get(edge_weight, graph), get(vertex_index, graph), less<int>(), plus<int>(), (numeric_limits<int>::max)(), 0, default_dijkstra_visitor());
-        int black_len = distancesB[position_count - 1];
+        int red_min = get_min_moves(start_red, trans, min_fields, max_fields, position_count);
+        int black_min = get_min_moves(start_black, trans, min_fields, max_fields, position_count);
 
-        if(red_len >= black_len) {
-            cout << "1" << endl;
+        // now we calculate the minimum amount of games each of the players does
+        int min_sherlock = -1;
+        int min_moriarty = -1;
+
+        // check if the steps needed to win with the red meeple is even ...
+        if(red_min % 2 == 0) {
+            // ... ok it is even. Now we have to find out how many game steps were needed to
+            // move the red meeple to the target position, as every second move sherlock moves the
+            // black and not the red meeple
+            min_sherlock = ((red_min - 2) / 2) * 4 + 4;
         } else {
-            cout << "0" << endl;
+            min_sherlock = ((red_min - 1) / 2) * 4 + 1;
         }
 
-//        cout << "red: " << red_len << ", black: " << black_len << endl;
+        if(black_min % 2 == 0) {
+            min_moriarty = ((black_min - 2) / 2) * 4 + 3;
+        } else {
+            min_moriarty = ((black_min - 1) / 2) * 4 + 2;
+        }
+
+        if(min_sherlock < min_moriarty) {
+            cout << 0 << endl;
+        } else {
+            cout << 1 << endl;
+        }
 
     }
 

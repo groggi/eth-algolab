@@ -1,0 +1,19 @@
+project( some-project_)
+
+# ^^ start of the CMakeLists.txt ...
+
+# enable C++11
+add_definitions("-std=c++11")
+
+# enable all warnings
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
+
+# enable debug always
+set(CMAKE_BUILD_TYPE "Debug")
+
+# additional information regarding the makefile creation, not really useful I think
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+# ... rest of the CMakeLists.txt ...
+cmake_minimum_required(VERSION 2.6.2)
