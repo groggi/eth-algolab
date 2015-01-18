@@ -348,7 +348,7 @@ URL for normal graph functions: \url{https://judge.inf.ethz.ch/doc/boost/libs/gr
 \subsection{CGAL: Approximation (Triangulation)}
 Nex image `\texttt{f}' is a `\texttt{face handle}'\\
 \includegraphics{_useful-snippets/cgal0.png}\\
-\includegraphics{_useful-snippets/cgal1.png}\\
+\includegraphics{_useful-snippets/cgal1.png}
 
 \subsection{Matching}
 \begin{itemize}
@@ -381,6 +381,30 @@ Algorithm:
 \item Start at visited vertices and do a vertices search (DFS) from $L$ to $R$ along edges from $V \ M$ and $R$ to $L$ along edges from $M$. Each such visited vertex is marked as visited
 \item All unvisited vertices in $L$ and all visited in $R$ are part of the minimal vertex cover
 \end{enumerate}
+
+\subsection{Connected Component}
+\begin{itemize}
+\item For undirected graphs
+\item Connected component is a subgraph of a graph where any two vertices in the subgraph are connected by a path, but no path exists to vertices to ones outside the subgraph
+\end{itemize}
+
+\subsection{Strongly Connected Component}
+\begin{itemize}
+\item For directed graphs
+\item Partitions a graph into subgraphs where each subgraph is strongly connected.
+\item \textbf{Strongly Connected}: A graph is strongly connected iff every vertex of the graph is reachable from every other vertex
+\end{itemize}
+
+\includegraphics[scale=0.4]{_useful-snippets/graph0.png}\\
+From: \url{https://commons.wikimedia.org/wiki/File:Scc.png}
+
+\subsection{Biconnected Component / Articulation Points}
+See BGL documentation, it's pretty good. Otherwise this might help:
+\begin{itemize}
+\item \textbf{Biconnected Graph}: A connected graph is biconnected iff removing any single vertex (and all edges from/to this vertex) can't disconnect the graph. Such a graph doesn't contain \textit{articulation points}!
+\item \textbf{Biconnected Components}: A subset of vertices where removing one of these vertices doesn't result in a disconnected graph inside the subgraph. Vertices can belong to multiple biconnected components!
+\item \textbf{Articulation Points}: These are the vertices that belong to more than one biconnected component. Such vertices are called \textit{articulation points}. Removing such a articulation point would result in an increase of connected components (i.e. increase the number of graphs). No such articulation points means the graph is biconnected!
+\end{itemize}
 
 \newpage
 \printindex
