@@ -3,7 +3,7 @@
 \usepackage{geometry}
 \geometry{a4paper, left=10mm, right=10mm, top=10mm, bottom=15mm}
 
-\usepackage[colorlinks=false, pdfborder={0 0 0 0}]{hyperref}
+\usepackage[colorlinks=false]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{float}
 \usepackage{pdfpages}
@@ -305,13 +305,13 @@
 \begin{itemize}
 \item around $10'000'000$ operations/iterations per second (ACM slide below claims its less, but oh well)
 \end{itemize}
-\includegraphics[scale=0.2]{_useful-snippets/general0.png}\\
-
+\includegraphics[scale=0.2]{_useful-snippets/general0.png}
 
 \subsection{Custom Sorting}
 \lstinputlisting{_useful-snippets/sort.cpp}
 
-\subsection{CMake}
+\subsection{CMake Configuration}
+Add to \texttt{CMakeLists.txt}:
 \lstinputlisting{_useful-snippets/cmakelists.txt}
 
 Debugging can also be enabled by calling \texttt{cmake -DCMAKE\_BUILD\_TYPE=Debug}, however this adds only the \texttt{-g} flag!
@@ -323,13 +323,19 @@ Debugging can also be enabled by calling \texttt{cmake -DCMAKE\_BUILD\_TYPE=Debu
 # Step 1: call CGAL CMake script
 cgal_create_cmake_script
 
-# Step 2: call CMake, don't forget the dot
+# Step 2: modify CMakeLists.txt if needed (adding C++11 support, debugging, etc.)
+vim CMakeLists.txt
+# or
+nano CMakeLists.txt
+# or ...
+
+# Step 3: call CMake, don't forget the dot
 cmake .
 
-# Step 3: from now on always enough to call make
+# Step 4: from now on always enough to call make
 make
 
-# Step 4: execute application
+# Step 5: execute application
 \end{lstlisting}
 
 \subsection{BGL}
@@ -343,7 +349,7 @@ URL for normal graph functions: \url{https://judge.inf.ethz.ch/doc/boost/libs/gr
 \includegraphics{_useful-snippets/lp_qp2.png}\\
 \includegraphics{_useful-snippets/lp_qp3.png}\\
 \includegraphics{_useful-snippets/lp_qp4.png}\\
-\includegraphics{_useful-snippets/lp_qp5.png}\\
+\includegraphics{_useful-snippets/lp_qp5.png}
 
 \subsection{CGAL: Approximation (Triangulation)}
 Nex image `\texttt{f}' is a `\texttt{face handle}'\\
