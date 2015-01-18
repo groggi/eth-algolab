@@ -350,6 +350,38 @@ Nex image `\texttt{f}' is a `\texttt{face handle}'\\
 \includegraphics{_useful-snippets/cgal0.png}\\
 \includegraphics{_useful-snippets/cgal1.png}\\
 
+\subsection{Matching}
+\begin{itemize}
+\item Undirected graph $G = (V, E)$
+\item Is a subset $M \subseteq E$ of edges
+\item Each pair of edges of the matching set ($e_1, e_2 \in M$) don't have a common vertices $v \in V$
+\item Or based on the vertices: Every pair of vertices $v_1, v_2 \in V$ aren't the start or end point of an edge $e \in M$
+\item \textbf{Maximal Matching}: If it's not possible to add another edge $e \in E \\ M$ to $M$ and $M$ being a matching
+\item \textbf{Maximum Matching}/\textbf{Maximum Cardinality Matching}: A maximal matching with the largest amount of edges. There might exists multiple maximum matchings.
+\end{itemize}
+
+\subsection{Vertex Cover}
+\begin{itemize}
+\item Undirected graph $G = (V, E)$
+\item A vertex cover is a subset $V' \subseteq V$ such that for each edge $(u, v) =: e \in E$ $u \in V'$ and/or $v \in V'$
+\item \textbf{Minimal Vertex Cover}: Generally NP-complete. Is the smallest possible vertex cover.
+\end{itemize}
+
+\subsection{König's Theorem}
+\begin{itemize}
+\item only for bipartite graphs
+\item The size of a maximum matching (maximum cardinality matching) is equal to the minimal vertex cover
+\end{itemize}
+
+Algorithm:
+\begin{enumerate}
+\item Let $G = (V, E)$ be a undirected bipartite graph, i.e. $L \cup R = V \land L \cap R = \emptyset$
+\item Calculate the Maximum Matching (Maximum Cardinality Matching), resulting in a matching $M \subseteq E$
+\item Mark all vertices $v \in L$ that are not in $M$ ($v \notin M$) as visited
+\item Start at visited vertices and do a vertices search (DFS) from $L$ to $R$ along edges from $V \ M$ and $R$ to $L$ along edges from $M$. Each such visited vertex is marked as visited
+\item All unvisited vertices in $L$ and all visited in $R$ are part of the minimal vertex cover
+\end{enumerate}
+
 \newpage
 \printindex
 
